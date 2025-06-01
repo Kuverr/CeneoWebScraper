@@ -27,6 +27,7 @@ def extract_feature(ancestor, selector=None, attribute=None, multiple=False):
             return ancestor.select_one(selector).text.strip()
         except AttributeError:
             return None
+    
     if attribute:
         return ancestor[attribute].strip()
     return ancestor.text.strip()

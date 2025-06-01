@@ -4,9 +4,11 @@
     {{opinions|safe}}
 {% endblock %}
 {% block script %}
-<script>
-    let table = new DataTable("#opinions",{
-        //options
-    });
-</script>
+    <script>
+        <table id="opinions">
+            let table = new DataTable('#opinions', {
+                //opinions
+            });
+        </table>
+    </script>
 {% endblock %}

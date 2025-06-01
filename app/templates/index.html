@@ -1,10 +1,45 @@
 {% extends 'base.html' %}
 {% block title %}Opis projektu{% endblock %}
 {% block content %}
-<ol>
-    <li>Cel aplikacji</li>
-    <li>Opis działania aplikacji</li>
-    <li>Zastosowane biblioteki</li>
-    <li>Zastosowane podejścia</li>
-</ol>
+    <div class="desc">
+        <h4>
+            Zastosowanie aplikacji
+        </h4>
+
+        <p>
+            Aplikacja służy do pobierania, analizy i wizualizacji opinii na temat produktów na podstawie ich ID w serwisie ceneo.pl
+        </p>
+    </div>
+
+    <div class="desc">
+        <h4>
+            Opis działania aplikacji
+        </h4>
+
+        <p>
+            Użytkownik wprowadza kod produktu z Ceneo.pl, na podstawie którego aplikacja automatycznie pobiera wszystkie dostępne opinie wraz z szczegółowymi informacjami (autor, ocena gwiazdkowa, rekomendacja, treść, wady, zalety, daty itp.). Zebrane dane są następnie prezentowane w postaci interaktywnej tabeli z możliwością sortowania i filtrowania oraz eksportowane do różnych formatów plików
+        </p>
+    </div>
+
+    <div class="desc">
+        <h4>
+            Zastosowane biblioteki
+        </h4>
+        
+        <ul>
+            <li>Flask - framework do tworzenia aplikacji webowych</li>
+            <li>DataTables - biblioteka JavaScript do zaawansowanych tabel interaktywnych</li> 
+            <li>jQuery - biblioteka JavaScript do manipulacji DOM</li>
+            <li>BeautifulSoup/requests - biblioteki Python do web scrapingu (pobierania danych z Ceneo.pl)</li>
+            <li>pandas/csv/json - biblioteki do przetwarzania i eksportu danych</li>              
+        </ul>
+    </div>
+    
+    <div class="desc">
+        <h4>Zastosowane podejścia</h4>
+         <ul>
+            <li>Strukturalne</li>
+            <li>Obiektowe</li>            
+        </ul>
+    </div>
 {% endblock %}

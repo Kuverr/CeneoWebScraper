@@ -1,4 +1,47 @@
-{% block title %}{% endblock %}
+{% extends 'base.html' %}
+{% block title %} O autorze {% endblock %}
 {% block content %}
+    <h2>
+        Jakub Baran
+    </h2>
 
+    <div>
+        <h4>
+            Informacje
+        </h4>
+
+        <ul>
+            <li>Status: student</li>
+            <li>Kierunek: Informatyka Stosowana</li>
+            <li>Uczelnia: Uniwersytet Ekonomiczny</li>
+            <li>Miejscowość: Kraków</li>
+            <li>Wiek: 20 lat</li>            
+        </ul>
+
+        <h4>
+            Zainteresowania
+        </h4>
+
+        <ul>
+            <li>Web-Development</li>
+            <li>Grafika cyfrowa</li>
+            <li>Druk 3D</li>
+            <li>Elektronika</li>
+            <li>Gry komputerowe</li>            
+        </ul>
+
+        <h4>
+            Kontakt
+        </h4>
+
+        <ul>
+            <li>email: 237213@student.uek.krakow.pl</li>
+            <li>
+                <a href="https://github.com/Kuverr">
+                    Github: Kuverr
+                </a>
+            </li>            
+        </ul>
+
+    </div>  
 {% endblock %}
