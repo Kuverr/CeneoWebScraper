@@ -2,7 +2,7 @@
 {% block title %} Pobieranie opinii o produkcie {% endblock %}
 {% block content %}
     {% if error is defined %}
-        <p>{{error}}</p>
+        <p id="extractErr">{{error}}</p>
     {% endif %}
     <form id="extract" action="{{url_for('extract')}}" method="post">
         <label for="product_id">Podaj kod produktu którego opinie chcesz pobrać</label>

@@ -1,14 +1,90 @@
 {% extends 'base.html' %}
 {% block title %} {{product_id}} - {% endblock %}
 {% block content %}
-    {{opinions|safe}}
+    <div>
+        <a href="#">CSV</a>
+        <a>|</a>
+        <a href="#">XLSX</a>
+        <a>|</a>
+        <a href="#">JSON</a>
+        <a>|</a>
+        <a href="{{url_for('charts', product_id=product_id)}}">Wykres</a>
+    </div>  
+
+    <table class="table" id="opinions">
+        <thead>
+            <tr>
+                <th>Autor</th>
+                <th>Rekomendacja</th>
+                <th>Ocena</th>
+                <th>Zalety</th>
+                <th>Wady</th>
+                <th>Data wystawienia</th>
+                <th>Data zakupu</th>
+                <th>Szczegóły</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for opinion in opinions %}
+                <tr>
+                    <td>{{opinion.author}}</td>
+                    <td>{{opinion.recommendation if opinion.recommendation is not none else ""}}</td>
+                    <td>{{opinion.stars}}</td>
+                    <td>{{opinion.useful}}</td>
+                    <td>{{opinion.unuseful}}</td>
+                    <td>{{opinion.post_date|truncate(13, False, "")}}</td>
+                    <td>{{opinion.purchase_date|truncate(13, False, "") if opinion.purchase_date is not none else "Opinia nie potwierdzona zakupem"}}</td>
+                    <td>
+                        <button data-bs-toggle="modal" data-bs-target="#details{{opinion.opinion_id}}">
+                            {{opinion.opinion_id}}
+                        </button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- All modals go here, after the table -->
+    {% for opinion in opinions %}
+    <div class="modal fade" id="details{{opinion.opinion_id}}" tabindex="-1" aria-labelledby="details{{opinion.opinion_id}}" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        Opinia {{opinion.opinion_id}}
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul>
+                        <li><span>Autor:</span> {{opinion.author}}</li>
+                        <li><span>Rekomendacja:</span> {{opinion.recommendation if opinion.recommendation is not none else "Nie mam zdania"}}</li>
+                        <li><span>Liczba gwiazdek:</span> {{opinion.stars}}</li>
+                        <li><span>Treść:</span> {{opinion.content}}</li>
+                        <li><span>Lista zalet:</span> {{opinion.pros|join(', ')}}</li>
+                        <li><span>Lista wad:</span> {{opinion.cons|join(', ')}}</li>
+                        <li><span>Dla ilu przydatna:</span> {{opinion.useful}}</li>
+                        <li><span>Dla ilu nieprzydatna:</span> {{opinion.unuseful}}</li>
+                        <li><span>Data wystawienia opinii:</span> {{opinion.post_date}}</li>
+                        <li><span>Data zakupu produktu:</span> {{opinion.purchase_date if opinion.purchase_date is not none else ""}}</li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-bs-dismiss="modal">Zamknij</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
 {% endblock %}
+
 {% block script %}
     <script>
-        <table id="opinions">
-            let table = new DataTable('#opinions', {
-                //opinions
-            });
-        </table>
+        let table = new DataTable('#opinions', {
+            language: {
+                url: 'https://cdn.datatables.net/plug-ins/2.3.2/i18n/pl.json',
+            },
+        });
     </script>
 {% endblock %}

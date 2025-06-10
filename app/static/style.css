@@ -1,36 +1,13 @@
 :root {
-    --main : #ff6400;
+    --main : #f12711;
     --txt1 : #f0f0f0;
     --txt2 : #0f0f0f;
-    --bg1 : #fafafa;
-    --bg2 : #3a3a3a;
-    --bg3 : #2a2a2a;
-}
-
-* {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    list-style-position: inside;
-}
-
-@font-face {
-    font-family: Sansation;
-    src: url("fonts/Sansation-Regular.ttf");
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: Sansation;
-    src: url("fonts/Sansation-Bold.ttf");
-    font-weight: bold;
-    font-style: normal;
+    --bg1 : #ffffff;
+    --bg2 : #7a7a7a;
 }
 
 body {
-    font-family: Sansation;
-    background: var(--bg3);
-    color: var(--txt1);
+    color: var(--txt2);
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -45,60 +22,92 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    padding: 20px 15%;
+    background: var(--bg1);
+    border-bottom: 1px solid var(--bg2);
 }
 
 main {
     display: flex;
     flex-grow: 1;
     overflow: hidden;
+    padding: 0 15%;
 }
 
 #menu {
     display: flex;
     flex-direction: column;
-    min-width: 15vw;
-    list-style: " | ";
-    font-size: 1.1rem;
-    background: var(--bg2);
-    padding: 5px;
+    gap: 15px;
+    padding: 15px 0;
+    width: 15%;
+    list-style: none;
+    font-size: 1.2rem;
+    background: none;
+    color: var(--txt2);
+    background: var(--bg1);
+    list-style-position: outside;
+    border-right: 1px solid var(--bg2);
 }
 
 #menu li {
-    margin: 5px 0;
+    height: auto;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    transition: all 0.25s ease;
+    position: relative;
+    z-index: 1;
 }
 
-#menu li::marker {
-    font-family: monospace;
+#menu li::before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 5px;
+    height: 100%;
+    left: 0;
+    background: linear-gradient(-72deg,#ffc864,#f12711);
+    background-size: 120% 120%;
+    transition: all 0.25s ease;
+    z-index: 0;
 }
 
-#menu li:hover {
-    list-style-type: " > ";
+#menu li:hover::before {
+    width: 100%;
 }
 
 #menu a {
+    padding: 5px 5px 5px 10px;
+    width: 100%;
+    height: 100%;
     text-decoration: none;
     color: inherit;
+    position: relative;
+    transition: all 0.25s ease;
+    background: #00000000;
 }
 
-#menu li:hover {
-    color: var(--main);
+#menu a:hover {
+    font-weight: bold;
+    color: var(--txt1);
+}
+
+.desc, #productList {
+    width: 100%;
 }
 
 #appcontent {
-    flex-grow: 1;
-    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 85%;
+    column-gap: 15px;
     color: var(--txt2);
     background: var(--bg1);
     overflow: scroll;
-}
-
-#appcontent h4, #appcontent h2 {
-    margin: 0 0 10px 0;
-}
-
-#appcontent p {
-    margin: 0 0 10px 0;
+    margin: 10px;
+    background: none;
 }
 
 #appcontent li::marker {
@@ -108,31 +117,40 @@ main {
 
 #appcontent li {
     list-style-type: " > ";
-    margin: 0 0 5px 0;
 }
 
 #appcontent ul {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    margin: 0 0 5px 0;
 }
 
 footer {
-    width: 100vw;
-    text-align: right;
+    position: fixed;
+    right: 0;
     bottom: 0;
-    height: 1.2rem;
+    text-align: center;
+    color: var(--txt2);
+    width: 120px;
+    background: var(--bg1);
+    font-size: 0.6rem;
+}
+
+#author {
+    width: 100%;
 }
 
 #extract {
     display: flex;
     flex-direction: column;
+    background: var(--bg1);
+    max-width: 20%;
+    height: fit-content;
+    text-align: center;
 }
 
 #extract * {
-    max-width: 20%;
-    margin: 0 0 10px 0;
+    margin: 5px
 }
 
 #extract input {
@@ -146,18 +164,26 @@ footer {
 #extract button {
     border: 1px solid var(--main);
     padding: 2px;
-    background: var(--bg1);
     border-radius: 5px;
     cursor: pointer;
+    background: var(--bg1);
+    transition: all 0.25s ease;
+}
+
+#extract button:hover {
+    background: linear-gradient(-72deg,#ffc864,#f12711);
+    background-size: 120% 120%;
+    color: var(--txt1);
+    font-weight: bold;
 }
 
 #extract button:hover::before {
-    color: var(--main);
+    font-family: monospace;
     content: "> ";
 }
 
 #extract button:hover::after {
-    color: var(--main);
+    font-family: monospace;
     content: " <";
 }
 

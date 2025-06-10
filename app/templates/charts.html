@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block title %} {{product_id}} - {{product_name}} {% endblock %}
+{% block content %}
+    <a href="{{url_for('product', product_id=product_id, product_name=product_name)}}">Wróć do opinii</a>
+    <img src="{{url_for('static', filename='images/charts/'+product_id+'_pie.png')}}" alt="Rozkład rekomendancji w opiniach o produkcie" class="img-fluid-img-thumbnail-pie-chart">
+    <img src="{{url_for('static', filename='images/charts/'+product_id+'_bar.png')}}" alt="Rozkład ilości gwiazdek" class="img-fluid-img-thumbnail-bar-chart">
+{% endblock %}

@@ -1,5 +1,19 @@
 {% extends 'base.html' %}
-{% block title %} Lista produktów {% endblock %}
+{% block title %}Lista produktów{% endblock %}
 {% block content %}
-
+<ul id="productList">
+    {% for product in products %}
+        <li>
+            <a href="{{url_for('product', product_id=product.product_id, product_name=product.product_name)}}">{{product.product_id}}</a>
+            <span>{{product.product_name}}</span>
+            <span>{{product.opinions_count}}</span>
+            <span>{{product.pros_count}}</span>
+            <span>{{product.cons_count}}</span>
+            <span>{{product.average_stars|round(2)}}</span>
+            <a href="#">CSV</a>
+            <a href="#">XLSX</a>
+            <a href="#">JSON</a>
+        </li>
+    {% endfor %}
+</ul>
 {% endblock %}
