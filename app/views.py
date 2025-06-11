@@ -5,9 +5,10 @@ import json
 import requests
 import pandas as pd
 import matplotlib
+import io
 matplotlib.use('Agg')
 
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, Response, send_file
 from config import headers
 from bs4 import BeautifulSoup
 from app import utils
@@ -24,7 +25,7 @@ def display_form():
 
 @app.route("/", methods=["POST"])
 def extract():
-    product_id = request.form.get("product_id")
+    product_id = request.form.get("product_id").strip()
     next_page = f"https://www.ceneo.pl/{product_id}#tab=reviews"
     response = requests.get(next_page,headers=headers)
 
@@ -141,7 +142,7 @@ def charts(product_id):
     )
 
     plt.title(f"Rozkład rekomendacji w opiniach o produkcie {product_id}", 
-          color='#0F0F0F', fontsize=16, pad=20)
+          color='#0F0F0F', fontsize=12, pad=20)
     
     plt.gcf().patch.set_facecolor('#00000000')
 
@@ -181,4 +182,43 @@ def charts(product_id):
         bbox_inches='tight')
     plt.close()
 
-    return render_template("charts.html", product_id=product_id, product_name=stats['product_name']) 
+    return render_template("charts.html", product_id=product_id, product_name=stats['product_name'])
+
+
+@app.route("/download/<product_id>/<filetype>")
+def download(product_id, filetype):
+    opinions_path = os.path.join(app.root_path, "data", "opinions", f"{product_id}.json")
+    if not os.path.exists(opinions_path):
+        return "Opinie nie znalezione", 404
+
+    with open(opinions_path, "r", encoding="utf-8") as file:
+        opinions = json.load(file)
+    df = pd.DataFrame(opinions)
+
+    if filetype == "json":
+        return send_file(
+            opinions_path,
+            mimetype="application/json",
+            as_attachment=True,
+            download_name=f"{product_id}.json"
+        )
+    elif filetype == "csv":
+        output = io.StringIO()
+        df.to_csv(output, index=False)
+        output.seek(0)
+        return Response(
+            output.getvalue(),
+            mimetype="text/csv",
+            headers={"Content-Disposition": f"attachment;filename={product_id}.csv"}
+        )
+    elif filetype == "xlsx":
+        output = io.BytesIO()
+        df.to_excel(output, index=False, engine='openpyxl')
+        output.seek(0)
+        return Response(
+            output.getvalue(),
+            mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            headers={"Content-Disposition": f"attachment;filename={product_id}.xlsx"}
+        )
+    else:
+        return "Nieobsługiwany format", 400

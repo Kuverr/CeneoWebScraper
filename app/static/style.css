@@ -14,9 +14,11 @@ body {
     flex-direction: column;
 }
 
-h1 {
+a {
     color: var(--main);
+    text-decoration: none;
 }
+
 
 header {
     display: flex;
@@ -25,6 +27,19 @@ header {
     padding: 20px 15%;
     background: var(--bg1);
     border-bottom: 1px solid var(--bg2);
+    height: 10%;
+    max-height: 10%;
+}
+
+header h1 {
+    color: var(--main);
+    width: 50%;
+    margin-bottom: 0 !important;
+}
+
+header h2 {
+    font-size: 1.5em;
+    margin-bottom: 0 !important;
 }
 
 main {
@@ -59,13 +74,14 @@ main {
     z-index: 1;
 }
 
-#menu li::before {
+li::before {
     content: "";
     display: block;
     position: absolute;
     width: 5px;
     height: 100%;
     left: 0;
+    top: 0;
     background: linear-gradient(-72deg,#ffc864,#f12711);
     background-size: 120% 120%;
     transition: all 0.25s ease;
@@ -105,24 +121,21 @@ main {
     column-gap: 15px;
     color: var(--txt2);
     background: var(--bg1);
-    overflow: scroll;
     margin: 10px;
     background: none;
-}
-
-#appcontent li::marker {
-    font-family: monospace;
-    font-weight: bold;
-}
-
-#appcontent li {
-    list-style-type: " > ";
 }
 
 #appcontent ul {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    gap: 15px;
+}
+
+#appcontent li {
+    list-style: none;
+    position: relative;
+    list-style-position: outside;
+    padding: 5px 5px 5px 10px;
 }
 
 footer {
@@ -187,8 +200,77 @@ footer {
     content: " <";
 }
 
-#opinions {
-    flex-direction: column;
-    border: 1px solid;
-    border-collapse: collapse;
+#opinionTable {
+    text-align: center;
+}
+
+#opinionTable button {
+    color: var(--main);
+    border: 1px solid var(--main);
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    background: var(--bg1);
+    transition: all 0.25s ease;
+    font-weight: bold;
+}
+
+#opinionTable button:hover:not([aria-disabled]) {
+    background: linear-gradient(-72deg,#ffc864,#f12711);
+    background-size: 120% 120%;
+    color: var(--txt1);
+}
+
+#productList > li {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+#productList > li > a:first-of-type {
+    width: 10%;
+}
+
+#opinionButtons {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 15px;
+}
+
+#productList > li > a:not(:first-of-type), #opinionButtons a {
+    text-align: center;
+    min-width: 8%;
+    border: 1px solid var(--main);
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    background: var(--bg1);
+    transition: all 0.25s ease;
+    font-weight: bold;
+}
+
+#productList > li > a:not(:first-of-type):hover, #opinionButtons a:hover {
+    background: linear-gradient(-72deg,#ffc864,#f12711);
+    background-size: 120% 120%;
+    color: var(--txt1);
+}
+
+#productList > li > span:first-of-type {
+    width: 30%;
+}
+
+#productList > li > span:not(:first-of-type) {
+    width: 5%;
+}
+#charts {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+#charts > img {
+    height: 50%;
 }

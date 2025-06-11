@@ -1,16 +1,14 @@
 {% extends 'base.html' %}
-{% block title %} {{product_id}} - {% endblock %}
+{% block title %} {{product_id}} - {{product_name}} {% endblock %}
 {% block content %}
-    <div>
-        <a href="#">CSV</a>
-        <a>|</a>
-        <a href="#">XLSX</a>
-        <a>|</a>
-        <a href="#">JSON</a>
-        <a>|</a>
+    <div id="opinionButtons">
+        <a href="{{ url_for('download', product_id=product_id, filetype='csv')}}">CSV</a>
+        <a href="{{ url_for('download', product_id=product_id, filetype='xlsx')}}">XLSX</a>
+        <a href="{{ url_for('download', product_id=product_id, filetype='json')}}">JSON</a>
         <a href="{{url_for('charts', product_id=product_id)}}">Wykres</a>
     </div>  
 
+    <div id="opinionTable">
     <table class="table" id="opinions">
         <thead>
             <tr>
@@ -43,6 +41,7 @@
             {% endfor %}
         </tbody>
     </table>
+    </div>
 
     <!-- All modals go here, after the table -->
     {% for opinion in opinions %}
@@ -76,7 +75,6 @@
         </div>
     </div>
     {% endfor %}
-
 {% endblock %}
 
 {% block script %}

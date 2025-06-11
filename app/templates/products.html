@@ -10,9 +10,9 @@
             <span>{{product.pros_count}}</span>
             <span>{{product.cons_count}}</span>
             <span>{{product.average_stars|round(2)}}</span>
-            <a href="#">CSV</a>
-            <a href="#">XLSX</a>
-            <a href="#">JSON</a>
+            <a href="{{ url_for('download', product_id=product.product_id, filetype='csv')}}">CSV</a>
+            <a href="{{ url_for('download', product_id=product.product_id, filetype='xlsx')}}">XLSX</a>
+            <a href="{{ url_for('download', product_id=product.product_id, filetype='json')}}">JSON</a>
         </li>
     {% endfor %}
 </ul>
